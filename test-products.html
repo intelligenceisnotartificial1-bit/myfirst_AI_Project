@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub Products Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-section {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .category-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .category-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .category-stats span {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .products-list {
+            padding: 1.5rem;
+        }
+
+        .product-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .product-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .price-info {
+            text-align: right;
+        }
+
+        .current-price {
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        .original-price {
+            color: #999;
+            font-size: 0.85rem;
+            text-decoration: line-through;
+        }
+
+        .discount {
+            background: #fecaca;
+            color: #991b1b;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .rating {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .stock {
+            text-align: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stock.high {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .stock.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .stock.low {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .summary h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .summary-item h3 {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .test-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .test-status.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .test-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .error-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fef2f2;
+            border-left: 3px solid #ef4444;
+            color: #991b1b;
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .product-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .product-row span {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ ShopHub Products Inventory Test</h1>
+
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <h3>Total Products</h3>
+                <div class="value">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Stock</h3>
+                <div class="value">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Categories</h3>
+                <div class="value">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Price Range</h3>
+                <div class="value">-</div>
+            </div>
+        </div>
+
+        <div id="categories-container" class="categories-grid"></div>
+
+        <div class="summary" id="summary-section" style="display: none;">
+            <h2>📊 Store Summary</h2>
+            <div class="summary-grid" id="summary-grid"></div>
+        </div>
+
+        <div id="test-result" class="test-status"></div>
+    </div>
+
+    <script>
+        // Load products data
+        const productsDatabase = {
+            'home-appliances': [
+                {
+                    id: 'HA001',
+                    name: 'Smart Refrigerator 450L',
+                    category: 'home-appliances',
+                    price: 89999,
+                    originalPrice: 119999,
+                    rating: 4.8,
+                    reviews: 2456,
+                    image: 'https://via.placeholder.com/300x300?text=Smart+Refrigerator',
+                    description: 'Energy-efficient smart refrigerator with WiFi control',
+                    stock: 45,
+                    badge: 'Best Seller',
+                    features: ['WiFi Control', 'Energy Efficient', '10-Year Warranty'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'HA002',
+                    name: 'Automatic Washing Machine 8kg',
+                    category: 'home-appliances',
+                    price: 34999,
+                    originalPrice: 49999,
+                    rating: 4.7,
+                    reviews: 3102,
+                    image: 'https://via.placeholder.com/300x300?text=Washing+Machine',
+                    description: 'Front-load automatic washing machine with AI wash',
+                    stock: 78,
+                    badge: 'Hot Deal',
+                    features: ['AI Wash', 'Energy Star', 'Digital Display'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'HA003',
+                    name: 'Air Conditioner 1.5 Ton',
+                    category: 'home-appliances',
+                    price: 45999,
+                    originalPrice: 64999,
+                    rating: 4.9,
+                    reviews: 4521,
+                    image: 'https://via.placeholder.com/300x300?text=Air+Conditioner',
+                    description: 'Inverter AC with smart cooling technology',
+                    stock: 62,
+                    badge: 'Premium',
+                    features: ['Inverter Tech', 'WiFi Smart', '5-Year Warranty'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'HA004',
+                    name: 'Microwave Oven 30L',
+                    category: 'home-appliances',
+                    price: 12999,
+                    originalPrice: 18999,
+                    rating: 4.6,
+                    reviews: 1823,
+                    image: 'https://via.placeholder.com/300x300?text=Microwave+Oven',
+                    description: 'Digital microwave with convection mode',
+                    stock: 95,
+                    badge: 'Popular',
+                    features: ['Convection Mode', 'Digital Control', 'Child Lock'],
+                    demand: 'High'
+                },
+                {
+                    id: 'HA005',
+                    name: 'Dishwasher 14 Place',
+                    category: 'home-appliances',
+                    price: 54999,
+                    originalPrice: 79999,
+                    rating: 4.8,
+                    reviews: 1256,
+                    image: 'https://via.placeholder.com/300x300?text=Dishwasher',
+                    description: 'Fully automatic dishwasher with 14 place setting',
+                    stock: 38,
+                    badge: 'Premium',
+                    features: ['Auto Wash', 'Energy Saving', 'Quiet Operation'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'HA006',
+                    name: 'Electric Water Heater 100L',
+                    category: 'home-appliances',
+                    price: 16999,
+                    originalPrice: 24999,
+                    rating: 4.7,
+                    reviews: 2134,
+                    image: 'https://via.placeholder.com/300x300?text=Water+Heater',
+                    description: 'Energy-efficient electric water heater',
+                    stock: 82,
+                    badge: 'Bestseller',
+                    features: ['Quick Heating', 'Temperature Control', 'Safety Thermostat'],
+                    demand: 'Very High'
+                }
+            ],
+            'electronics': [
+                {
+                    id: 'EL001',
+                    name: 'iPhone 15 Pro Max 256GB',
+                    category: 'electronics',
+                    price: 449999,
+                    originalPrice: 559999,
+                    rating: 4.9,
+                    reviews: 8934,
+                    image: 'https://via.placeholder.com/300x300?text=iPhone+15+Pro',
+                    description: 'Latest iPhone with A17 Pro chip and titanium design',
+                    stock: 34,
+                    badge: 'Flagship',
+                    features: ['A17 Pro Chip', 'Titanium Design', '5G Support'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'EL002',
+                    name: 'Samsung Galaxy S24 Ultra',
+                    category: 'electronics',
+                    price: 379999,
+                    originalPrice: 479999,
+                    rating: 4.8,
+                    reviews: 6234,
+                    image: 'https://via.placeholder.com/300x300?text=Samsung+S24',
+                    description: 'Premium Android flagship with 200MP camera',
+                    stock: 51,
+                    badge: 'Premium',
+                    features: ['200MP Camera', 'Snapdragon 8 Gen 3', '5G'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'EL003',
+                    name: 'Sony WH-1000XM5 Headphones',
+                    category: 'electronics',
+                    price: 34999,
+                    originalPrice: 49999,
+                    rating: 4.9,
+                    reviews: 5634,
+                    image: 'https://via.placeholder.com/300x300?text=Sony+Headphones',
+                    description: 'Industry-leading noise cancelling headphones',
+                    stock: 127,
+                    badge: 'Best Seller',
+                    features: ['ANC Tech', '8hr Battery', 'Premium Sound'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'EL004',
+                    name: 'iPad Pro 12.9" M4',
+                    category: 'electronics',
+                    price: 189999,
+                    originalPrice: 249999,
+                    rating: 4.8,
+                    reviews: 3456,
+                    image: 'https://via.placeholder.com/300x300?text=iPad+Pro',
+                    description: 'Powerful tablet with M4 chip and OLED display',
+                    stock: 42,
+                    badge: 'Flagship',
+                    features: ['M4 Chip', 'OLED Display', 'Pencil Support'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'EL005',
+                    name: 'PlayStation 5 Console',
+                    category: 'electronics',
+                    price: 74999,
+                    originalPrice: 99999,
+                    rating: 4.9,
+                    reviews: 9876,
+                    image: 'https://via.placeholder.com/300x300?text=PS5',
+                    description: 'Next-gen gaming console with ultra HD graphics',
+                    stock: 28,
+                    badge: 'Hot Deal',
+                    features: ['4K Gaming', 'Fast Loading', '825GB SSD'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'EL006',
+                    name: 'MacBook Pro 16" M3 Max',
+                    category: 'electronics',
+                    price: 449999,
+                    originalPrice: 549999,
+                    rating: 4.9,
+                    reviews: 4234,
+                    image: 'https://via.placeholder.com/300x300?text=MacBook+Pro',
+                    description: 'Professional laptop with M3 Max chip',
+                    stock: 19,
+                    badge: 'Premium',
+                    features: ['M3 Max Chip', 'ProMotion Display', 'All-Day Battery'],
+                    demand: 'High'
+                }
+            ],
+            'cosmetics': [
+                {
+                    id: 'CO001',
+                    name: 'MAC Fix+ Face Spray',
+                    category: 'cosmetics',
+                    price: 3499,
+                    originalPrice: 4999,
+                    rating: 4.8,
+                    reviews: 4567,
+                    image: 'https://via.placeholder.com/300x300?text=MAC+Fix+Spray',
+                    description: 'Professional makeup setting spray for long wear',
+                    stock: 234,
+                    badge: 'Best Seller',
+                    features: ['Long-Lasting', 'All-Day Wear', 'Professional Quality'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'CO002',
+                    name: 'Maybelline Superstay Lipstick',
+                    category: 'cosmetics',
+                    price: 1299,
+                    originalPrice: 1899,
+                    rating: 4.7,
+                    reviews: 7892,
+                    image: 'https://via.placeholder.com/300x300?text=Maybelline+Lipstick',
+                    description: 'Long-lasting liquid lipstick with vibrant colors',
+                    stock: 567,
+                    badge: 'Popular',
+                    features: ['24-Hour Wear', 'Waterproof', 'Matte Finish'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'CO003',
+                    name: 'Estée Lauder Double Wear',
+                    category: 'cosmetics',
+                    price: 5499,
+                    originalPrice: 7999,
+                    rating: 4.9,
+                    reviews: 3245,
+                    image: 'https://via.placeholder.com/300x300?text=Estee+Lauder',
+                    description: 'Premium foundation for flawless all-day coverage',
+                    stock: 156,
+                    badge: 'Premium',
+                    features: ['Full Coverage', 'SPF 10', 'Transfer-Resistant'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'CO004',
+                    name: 'L\'Oréal Paris Serum',
+                    category: 'cosmetics',
+                    price: 2299,
+                    originalPrice: 3599,
+                    rating: 4.8,
+                    reviews: 5634,
+                    image: 'https://via.placeholder.com/300x300?text=LOreal+Serum',
+                    description: 'Anti-aging serum with hyaluronic acid',
+                    stock: 345,
+                    badge: 'Hot Deal',
+                    features: ['Hydrating', 'Anti-Aging', 'Dermatologist Tested'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'CO005',
+                    name: 'Charlotte Tilbury Luxury Palette',
+                    category: 'cosmetics',
+                    price: 8999,
+                    originalPrice: 12999,
+                    rating: 4.9,
+                    reviews: 2134,
+                    image: 'https://via.placeholder.com/300x300?text=Charlotte+Tilbury',
+                    description: 'Luxury eyeshadow palette with 12 shades',
+                    stock: 89,
+                    badge: 'Premium',
+                    features: ['12 Shades', 'Blendable', 'Long-Lasting'],
+                    demand: 'High'
+                },
+                {
+                    id: 'CO006',
+                    name: 'Dove Body Lotion',
+                    category: 'cosmetics',
+                    price: 899,
+                    originalPrice: 1299,
+                    rating: 4.6,
+                    reviews: 12456,
+                    image: 'https://via.placeholder.com/300x300?text=Dove+Lotion',
+                    description: 'Moisturizing body lotion for soft skin',
+                    stock: 892,
+                    badge: 'Best Seller',
+                    features: ['Moisturizing', 'Dermatologist Tested', 'Gentle Formula'],
+                    demand: 'Very High'
+                }
+            ],
+            'wearables': [
+                {
+                    id: 'WR001',
+                    name: 'Apple Watch Ultra 2',
+                    category: 'wearables',
+                    price: 89999,
+                    originalPrice: 119999,
+                    rating: 4.9,
+                    reviews: 6234,
+                    image: 'https://via.placeholder.com/300x300?text=Apple+Watch+Ultra',
+                    description: 'Premium rugged smartwatch with advanced features',
+                    stock: 67,
+                    badge: 'Flagship',
+                    features: ['Rugged Design', 'Fitness Tracking', '36hr Battery'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'WR002',
+                    name: 'Samsung Galaxy Watch 6 Classic',
+                    category: 'wearables',
+                    price: 34999,
+                    originalPrice: 49999,
+                    rating: 4.8,
+                    reviews: 4567,
+                    image: 'https://via.placeholder.com/300x300?text=Galaxy+Watch+6',
+                    description: 'Classic smartwatch with rotating bezel',
+                    stock: 92,
+                    badge: 'Best Seller',
+                    features: ['AMOLED Display', 'Fitness Tracking', 'Heart Monitor'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'WR003',
+                    name: 'Fitbit Charge 6',
+                    category: 'wearables',
+                    price: 19999,
+                    originalPrice: 29999,
+                    rating: 4.7,
+                    reviews: 8234,
+                    image: 'https://via.placeholder.com/300x300?text=Fitbit+Charge+6',
+                    description: 'Fitness tracker with comprehensive health monitoring',
+                    stock: 178,
+                    badge: 'Popular',
+                    features: ['6-Day Battery', 'ECG App', 'Sleep Tracking'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'WR004',
+                    name: 'Garmin Forerunner 965',
+                    category: 'wearables',
+                    price: 54999,
+                    originalPrice: 79999,
+                    rating: 4.9,
+                    reviews: 2345,
+                    image: 'https://via.placeholder.com/300x300?text=Garmin+Forerunner',
+                    description: 'GPS running watch for serious athletes',
+                    stock: 45,
+                    badge: 'Premium',
+                    features: ['GPS Tracking', 'AMOLED Display', '11-Day Battery'],
+                    demand: 'High'
+                },
+                {
+                    id: 'WR005',
+                    name: 'Sony WF-1000XM5 Earbuds',
+                    category: 'wearables',
+                    price: 24999,
+                    originalPrice: 34999,
+                    rating: 4.9,
+                    reviews: 5634,
+                    image: 'https://via.placeholder.com/300x300?text=Sony+WF+Earbuds',
+                    description: 'Wireless earbuds with premium noise cancellation',
+                    stock: 134,
+                    badge: 'Best Seller',
+                    features: ['ANC', '8hr Battery', 'Spatial Audio'],
+                    demand: 'Very High'
+                },
+                {
+                    id: 'WR006',
+                    name: 'Mi Band 8 Pro',
+                    category: 'wearables',
+                    price: 8999,
+                    originalPrice: 12999,
+                    rating: 4.6,
+                    reviews: 9876,
+                    image: 'https://via.placeholder.com/300x300?text=Mi+Band+8',
+                    description: 'Budget-friendly fitness band with AMOLED display',
+                    stock: 456,
+                    badge: 'Value Deal',
+                    features: ['AMOLED Display', '14-Day Battery', 'Health Monitoring'],
+                    demand: 'Very High'
+                }
+            ]
+        };
+
+        // Test functions
+        function getAllProducts() {
+            let allProducts = [];
+            for (let category in productsDatabase) {
+                allProducts = allProducts.concat(productsDatabase[category]);
+            }
+            return allProducts;
+        }
+
+        function calculateDiscount(product) {
+            return Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        }
+
+        function getStockStatus(stock) {
+            if (stock > 50) return 'high';
+            if (stock > 20) return 'medium';
+            return 'low';
+        }
+
+        function renderTest() {
+            try {
+                const allProducts = getAllProducts();
+                const categories = Object.keys(productsDatabase);
+                let totalStock = 0;
+                let minPrice = Infinity;
+                let maxPrice = 0;
+
+                // Calculate stats
+                allProducts.forEach(product => {
+                    totalStock += product.stock;
+                    minPrice = Math.min(minPrice, product.price);
+                    maxPrice = Math.max(maxPrice, product.price);
+                });
+
+                // Update main stats
+                document.querySelectorAll('.stat-card .value')[0].textContent = allProducts.length;
+                document.querySelectorAll('.stat-card .value')[1].textContent = totalStock.toLocaleString();
+                document.querySelectorAll('.stat-card .value')[2].textContent = categories.length;
+                document.querySelectorAll('.stat-card .value')[3].textContent =
+                    `Rs ${minPrice.toLocaleString()} - Rs ${maxPrice.toLocaleString()}`;
+
+                // Render categories
+                const container = document.getElementById('categories-container');
+                categories.forEach(category => {
+                    const products = productsDatabase[category];
+                    const categoryTitle = category.replace('-', ' ').toUpperCase();
+
+                    let categoryStock = 0;
+                    let categoryValue = 0;
+                    products.forEach(p => {
+                        categoryStock += p.stock;
+                        categoryValue += (p.price * p.stock);
+                    });
+
+                    let html = `
+                        <div class="category-section">
+                            <div class="category-header">
+                                <h2>${categoryTitle}</h2>
+                                <div class="category-stats">
+                                    <span><strong>Products:</strong> ${products.length}</span>
+                                    <span><strong>Stock:</strong> ${categoryStock}</span>
+                                </div>
+                            </div>
+                            <div class="products-list">
+                                <div class="product-row" style="font-weight: 700; background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
+                                    <span>Product Name</span>
+                                    <span>Price</span>
+                                    <span>Rating</span>
+                                    <span>Stock</span>
+                                    <span>Disc.</span>
+                                </div>
+                    `;
+
+                    products.forEach(product => {
+                        const discount = calculateDiscount(product);
+                        const stockStatus = getStockStatus(product.stock);
+                        html += `
+                            <div class="product-row">
+                                <span class="product-name">${product.name}</span>
+                                <span class="price-info">
+                                    <div class="current-price">Rs ${product.price.toLocaleString()}</div>
+                                    <div class="original-price">Rs ${product.originalPrice.toLocaleString()}</div>
+                                </span>
+                                <span class="rating">★${product.rating.toFixed(1)}</span>
+                                <span class="stock ${stockStatus}">${product.stock}</span>
+                                <span class="discount">-${discount}%</span>
+                            </div>
+                        `;
+                    });
+
+                    html += `</div></div>`;
+                    container.innerHTML += html;
+                });
+
+                // Render summary
+                document.getElementById('summary-section').style.display = 'block';
+                const summaryGrid = document.getElementById('summary-grid');
+                const avgDiscount = Math.round(
+                    allProducts.reduce((sum, p) => sum + calculateDiscount(p), 0) / allProducts.length
+                );
+                const totalValue = allProducts.reduce((sum, p) => sum + (p.price * p.stock), 0);
+
+                summaryGrid.innerHTML = `
+                    <div class="summary-item">
+                        <h3>Total Products</h3>
+                        <div class="value">${allProducts.length}</div>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Total Inventory Value</h3>
+                        <div class="value">Rs ${(totalValue / 10000000).toFixed(1)}Cr</div>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Average Discount</h3>
+                        <div class="value">${avgDiscount}%</div>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Avg Rating</h3>
+                        <div class="value">★${(allProducts.reduce((sum, p) => sum + p.rating, 0) / allProducts.length).toFixed(1)}</div>
+                    </div>
+                `;
+
+                // Success message
+                const testResult = document.getElementById('test-result');
+                testResult.className = 'test-status success';
+                testResult.innerHTML = `
+                    ✅ <strong>All Products Loaded Successfully!</strong>
+                    <br>24 high-demand products across 4 categories are ready for sale.
+                `;
+
+            } catch (error) {
+                const testResult = document.getElementById('test-result');
+                testResult.className = 'test-status error';
+                testResult.innerHTML = `
+                    ❌ <strong>Test Failed</strong>
+                    <div class="error-details">${error.message}</div>
+                `;
+            }
+        }
+
+        // Run test on page load
+        document.addEventListener('DOMContentLoaded', renderTest);
+    </script>
+</body>
+</html>

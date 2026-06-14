@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub - Premium Shopping Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+                    <text x="16" y="22" font-size="20" font-weight="bold" text-anchor="middle" fill="white">S</text>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>ShopHub</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#payment">Payment</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="btn-primary">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Background -->
+    <section class="hero">
+        <div id="3d-canvas"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="word">Premium</span>
+                <span class="word">Shopping</span>
+                <span class="word">Experience</span>
+            </h1>
+            <p class="hero-subtitle">Discover thousands of products across all categories with secure Pakistani payments</p>
+            <div class="hero-buttons">
+                <button class="btn-primary btn-large">Start Shopping</button>
+                <button class="btn-secondary btn-large">Learn More</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="categories-grid">
+                <!-- Home Appliances -->
+                <div class="category-card" data-category="home-appliances">
+                    <div class="card-image home-appliances">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Refrigerator -->
+                            <rect x="60" y="40" width="80" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <line x1="70" y1="50" x2="130" y2="50" stroke="currentColor" stroke-width="2"/>
+                            <rect x="70" y="60" width="60" height="50" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="130" cy="85" r="3" fill="currentColor"/>
+                            <rect x="70" y="120" width="60" height="35" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="130" cy="140" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Home Appliances</h3>
+                    <p>Premium appliances for modern living</p>
+                    <button class="btn-explore">Explore Now</button>
+                </div>
+
+                <!-- Electronics Gadgets -->
+                <div class="category-card" data-category="electronics">
+                    <div class="card-image electronics">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Smartphone -->
+                            <rect x="60" y="30" width="80" height="140" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="100" cy="155" r="6" fill="currentColor"/>
+                            <rect x="65" y="35" width="70" height="110" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <line x1="70" y1="40" x2="130" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>Electronics & Gadgets</h3>
+                    <p>Latest tech and innovative devices</p>
+                    <button class="btn-explore">Explore Now</button>
+                </div>
+
+                <!-- Cosmetics -->
+                <div class="category-card" data-category="cosmetics">
+                    <div class="card-image cosmetics">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Lipstick -->
+                            <rect x="75" y="40" width="50" height="80" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M 85 120 L 100 140 L 115 120 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="100" cy="55" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Cosmetics & Beauty</h3>
+                    <p>Premium beauty and personal care</p>
+                    <button class="btn-explore">Explore Now</button>
+                </div>
+
+                <!-- Wearables -->
+                <div class="category-card" data-category="wearables">
+                    <div class="card-image wearables">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Smartwatch -->
+                            <circle cx="100" cy="100" r="45" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="100" cy="100" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <rect x="50" y="95" width="20" height="10" rx="3" fill="currentColor"/>
+                            <rect x="130" y="95" width="20" height="10" rx="3" fill="currentColor"/>
+                            <circle cx="100" cy="100" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Wearables</h3>
+                    <p>Smart watches and fitness trackers</p>
+                    <button class="btn-explore">Explore Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose ShopHub?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 2C12.95 2 4 10.95 4 22c0 9.2 6.54 16.94 15 18.68V42h10v-1.32C37.46 38.94 44 31.2 44 22c0-11.05-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable shipping across Pakistan with real-time tracking</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 2C12.95 2 4 10.95 4 22s8.95 20 20 20 20-8.95 20-20S35.05 2 24 2zm-2 30h4v4h-4v-4zm0-24h4v20h-4V8z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Multiple Pakistani payment options with 256-bit encryption</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm-4 30h8v4h-8v-4zm0-24h8v20h-8V10z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Customer support available round the clock in Urdu and English</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm10 26h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Easy Returns</h3>
+                    <p>30-day return policy with hassle-free refunds</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 2C12.95 2 4 10.95 4 22c0 9.2 6.54 16.94 15 18.68V42h10v-1.32C37.46 38.94 44 31.2 44 22c0-11.05-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive pricing with regular discounts and special offers</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm3.5-9h-7v-6h7v6z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Verified Sellers</h3>
+                    <p>All products from certified merchants with quality guarantees</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Gateway Section -->
+    <section id="payment" class="payment">
+        <div class="container">
+            <h2 class="section-title">Secure Pakistani Payment Methods</h2>
+            <div class="payment-methods">
+                <!-- JazzCash -->
+                <div class="payment-card">
+                    <div class="payment-icon jazzcash">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#E91E63"/>
+                            <text x="50" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="white">J</text>
+                        </svg>
+                    </div>
+                    <h3>JazzCash</h3>
+                    <p>Mobile wallet payment</p>
+                    <ul>
+                        <li>Instant transfers</li>
+                        <li>No credit card needed</li>
+                    </ul>
+                </div>
+
+                <!-- Easypaisa -->
+                <div class="payment-card">
+                    <div class="payment-icon easypaisa">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#FF6B35"/>
+                            <text x="50" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="white">E</text>
+                        </svg>
+                    </div>
+                    <h3>Easypaisa</h3>
+                    <p>Mobile money service</p>
+                    <ul>
+                        <li>Simple checkout</li>
+                        <li>Shop now, pay later</li>
+                    </ul>
+                </div>
+
+                <!-- HBL (Habib Bank) -->
+                <div class="payment-card">
+                    <div class="payment-icon hbl">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#004B87"/>
+                            <text x="50" y="40" font-size="20" font-weight="bold" text-anchor="middle" fill="white">HBL</text>
+                        </svg>
+                    </div>
+                    <h3>HBL Card</h3>
+                    <p>Debit & Credit Cards</p>
+                    <ul>
+                        <li>Visa & Mastercard</li>
+                        <li>Secure 3D SSL</li>
+                    </ul>
+                </div>
+
+                <!-- UBL (United Bank) -->
+                <div class="payment-card">
+                    <div class="payment-icon ubl">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#C41E3A"/>
+                            <text x="50" y="40" font-size="20" font-weight="bold" text-anchor="middle" fill="white">UBL</text>
+                        </svg>
+                    </div>
+                    <h3>UBL Card</h3>
+                    <p>Payment Gateway</p>
+                    <ul>
+                        <li>All major cards</li>
+                        <li>EMI options</li>
+                    </ul>
+                </div>
+
+                <!-- Stripe (International) -->
+                <div class="payment-card">
+                    <div class="payment-icon stripe">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#635BFF"/>
+                            <text x="50" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="white">STRIPE</text>
+                        </svg>
+                    </div>
+                    <h3>Stripe</h3>
+                    <p>International cards</p>
+                    <ul>
+                        <li>Global payments</li>
+                        <li>Multi-currency</li>
+                    </ul>
+                </div>
+
+                <!-- Bank Transfer -->
+                <div class="payment-card">
+                    <div class="payment-icon bank">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#1E88E5"/>
+                            <path d="M 50 20 L 75 30 L 75 40 L 25 40 L 25 30 Z" fill="white"/>
+                            <rect x="25" y="40" width="50" height="20" fill="white" fill-opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <h3>Bank Transfer</h3>
+                    <p>Direct deposit</p>
+                    <ul>
+                        <li>All Pakistani banks</li>
+                        <li>Secure & verified</li>
+                    </ul>
+                </div>
+
+                <!-- Cryptocurrency -->
+                <div class="payment-card">
+                    <div class="payment-icon crypto">
+                        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="60" rx="4" fill="#F7931A"/>
+                            <circle cx="50" cy="30" r="15" fill="none" stroke="white" stroke-width="2"/>
+                            <text x="50" y="36" font-size="24" font-weight="bold" text-anchor="middle" fill="white">₿</text>
+                        </svg>
+                    </div>
+                    <h3>Cryptocurrency</h3>
+                    <p>Bitcoin & Stablecoin</p>
+                    <ul>
+                        <li>Modern payment</li>
+                        <li>Low fees</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>50K+</h3>
+                    <p>Active Customers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>100K+</h3>
+                    <p>Products Available</p>
+                </div>
+                <div class="stat-card">
+                    <h3>99.8%</h3>
+                    <p>Customer Satisfaction</p>
+                </div>
+                <div class="stat-card">
+                    <h3>24/7</h3>
+                    <p>Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Start Shopping?</h2>
+            <p>Join thousands of happy customers in Pakistan</p>
+            <button class="btn-primary btn-large">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>About ShopHub</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Payment Methods</h4>
+                    <p>We accept JazzCash, Easypaisa, HBL, UBL, Bank Transfer, and Cryptocurrency</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopHub. All rights reserved. Made for Pakistan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="products-data.js"></script>
+    <script src="products-display.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
